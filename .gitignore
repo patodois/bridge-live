@@ -1,0 +1,9 @@
+# Output of runs and local builds. Screenshots are game content: never committed.
+work/
+logs/
+peer/target/
+# Run reports carry machine details and game log lines: local only, never committed.
+reports/
+__pycache__/
+*.pyc
+config.local.json

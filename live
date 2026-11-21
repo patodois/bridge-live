@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# bridge-live: the live interop matrix of the link with the real games. See README.md.
+set -u
+HERE="$(cd "$(dirname "$0")" && pwd)"
+exec /usr/bin/python3 -u "$HERE/orchestrator/live.py" "$@"

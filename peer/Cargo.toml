@@ -1,0 +1,22 @@
+[package]
+name = "live-peer"
+version = "0.3.0"
+edition = "2021"
+description = "Scripted link peer (host or guest) for bridge-live: one session against a real game, one JSON result line"
+license = "MIT OR Apache-2.0"
+publish = false
+build = "build.rs"
+
+[[bin]]
+name = "live_peer"
+path = "src/main.rs"
+
+[dependencies]
+# rewrite-bridge at the commit that implements contract revision 8. No crates.io release carries revision 8 yet,
+# so the dependency is pinned by its full git revision (Cargo.lock records the same commit). Go back to an exact
+# registry version (`version = "=x.y.z"`) once a release with revision 8 is published.
+rewrite-bridge = { git = "https://github.com/patodois/rewrite-bridge", rev = "d03035b11e04de5ab9b289bd8c60fb2d25e4f126", features = ["link"] }
+serde_json = "1"
+
+[profile.release]
+debug = false

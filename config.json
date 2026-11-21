@@ -1,0 +1,189 @@
+{
+  "_comment": "The only place with local paths (like bridge-verify's config.toml). Nothing else in this repository knows where a game or a checkout lives.",
+  "java_home": "/opt/homebrew/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home",
+  "limits": {
+    "min_free_ram_percent": 20,
+    "min_free_disk_gb": 30,
+    "regression_percent": 25,
+    "min_secs_rise": 3.0,
+    "min_rss_rise_mb": 32.0,
+    "rate_drop_percent": 30,
+    "keep_log_runs": 6
+  },
+  "tools": {
+    "link_java": "~/link-java",
+    "bridge_guest": "~/bridge-guest/target/release/bridge-guest",
+    "bridge_guest_repo": "~/bridge-guest",
+    "guest_compose_install": "work/tools/bin/guest_compose",
+    "guest_compose_pin": "rewrite-bridge-bevy at git rev d03035b11e04de5ab9b289bd8c60fb2d25e4f126 (contract revision 8; see README)"
+  },
+  "bridge_guest_args": [
+    "--provider",
+    "hytale",
+    "--id",
+    "Server/Models/Intelligent/Trork/Trork.json",
+    "--clip",
+    "Walk",
+    "--in-front",
+    "--size",
+    "640x360"
+  ],
+  "hytale": {
+    "package": "~/Library/Application Support/Hytale/install/release/package",
+    "plugin_jar": "~/hytale-link/build/HytaleLink.jar",
+    "repo": "~/hytale-link",
+    "server_dir": "work/hytale-server",
+    "xmx": "2g",
+    "bind": "127.0.0.1:5529"
+  },
+  "repos": [
+    "~/minecraft-link",
+    "~/minecraft-link-1.20.1",
+    "~/minecraft-link-1.12.2",
+    "~/minecraft-link-1.7.10",
+    "~/hytale-link",
+    "~/bridge-guest",
+    "~/link-java",
+    "~/rewrite-bridge"
+  ],
+  "mc": {
+    "26.3": {
+      "dir": "~/minecraft-link",
+      "family": "modern",
+      "ground_y": 4,
+      "sound": [
+        "master",
+        "music",
+        "record",
+        "weather",
+        "block",
+        "hostile",
+        "neutral",
+        "player",
+        "ambient",
+        "voice",
+        "ui"
+      ],
+      "loaders": {
+        "fabric": {
+          "task": ":fabric:runClient",
+          "run_dir": "fabric/run",
+          "instance": "scratch"
+        },
+        "neoforge": {
+          "task": ":neoforge:runClient",
+          "run_dir": "neoforge/run",
+          "instance": "scratch"
+        },
+        "forge": {
+          "task": ":forge:runClient",
+          "run_dir": "forge/run"
+        }
+      },
+      "jfr": {
+        "supported": true
+      },
+      "options": {
+        "onboardAccessibility": "false"
+      }
+    },
+    "1.20.1": {
+      "dir": "~/minecraft-link-1.20.1",
+      "family": "modern",
+      "ground_y": -60,
+      "sound": [
+        "master",
+        "music",
+        "record",
+        "weather",
+        "block",
+        "hostile",
+        "neutral",
+        "player",
+        "ambient",
+        "voice"
+      ],
+      "loaders": {
+        "fabric": {
+          "task": ":fabric:runClient",
+          "run_dir": "fabric/run",
+          "instance": "scratch"
+        },
+        "forge": {
+          "task": ":forge:runClient",
+          "run_dir": "forge/run"
+        },
+        "neoforge": {
+          "task": ":neoforge:runClient",
+          "run_dir": "neoforge/run"
+        }
+      },
+      "java_home": "~/.gradle/jdks/eclipse_adoptium-21-aarch64-os_x.2/jdk-21.0.12.1+1/Contents/Home",
+      "java_note": "Gradle 8.14.3 of the 1.20.1 branch cannot read JDK 25 class files here (\"Unsupported class file major version 69\"), so Gradle runs on the JDK 21 of ~/.gradle/jdks (the one the README says its recorded dev-client runs used); the game itself runs on Java 17 from the toolchain.",
+      "jfr": {
+        "supported": true
+      },
+      "options": {
+        "onboardAccessibility": "false",
+        "tutorialStep": "none"
+      }
+    },
+    "1.12.2": {
+      "dir": "~/minecraft-link-1.12.2",
+      "family": "legacy",
+      "ground_y": 4,
+      "sound": [
+        "master",
+        "music",
+        "record",
+        "weather",
+        "block",
+        "hostile",
+        "neutral",
+        "player",
+        "ambient",
+        "voice"
+      ],
+      "loaders": {
+        "forge": {
+          "task": "runClient",
+          "run_dir": "run"
+        }
+      },
+      "jfr": {
+        "supported": false,
+        "reason": "Java 8 game JVM (ForgeGradle 1.12.2/1.7.10 builds): its JFR is a backport with a different option syntax and no per-event settings on the command line, so the CPU and allocation periods cannot be set; skipped, not failed"
+      }
+    },
+    "1.7.10": {
+      "dir": "~/minecraft-link-1.7.10",
+      "family": "legacy",
+      "ground_y": 4,
+      "sound_keys": [
+        "soundVolume",
+        "musicVolume"
+      ],
+      "loaders": {
+        "forge": {
+          "task": "runClient",
+          "run_dir": "run"
+        }
+      },
+      "jfr": {
+        "supported": false,
+        "reason": "Java 8 game JVM (ForgeGradle 1.12.2/1.7.10 builds): its JFR is a backport with a different option syntax and no per-event settings on the command line, so the CPU and allocation periods cannot be set; skipped, not failed"
+      }
+    }
+  },
+  "_scratch": "Games run with a scratch home under work/scratch and without write access to the real launcher profiles (orchestrator/gameenv.py). `instance: scratch` moves the game directory too; `user_home: false` leaves the game JVM's user.home alone.",
+  "jfr": {
+    "packages": [
+      "dev.patodois.minecraftlink",
+      "dev.patodois.rewritelink"
+    ],
+    "settings": "profile",
+    "period": "1s",
+    "top": 15,
+    "timeout_s": 180
+  }
+}
