@@ -1,4 +1,4 @@
-# bridge-live
+<h1 align="center"><img src="docs/title.png" alt="bridge-live" width="323"></h1>
 
 Test layer 4 for the [rewrite-bridge](https://github.com/patodois/rewrite-bridge) passthrough link: an automated **live interop
 matrix with the real games** on macOS. One command starts each pair of programs that should be able to talk
